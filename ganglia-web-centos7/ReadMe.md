@@ -22,7 +22,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 ### Run the container
 
-1. In order to ensure the normal operation of init (systemd), the host machine needs to open the permission. (When SELinux is enabled)
+1. In order to ensure the normal operation of init (systemd) inside container, the host machine needs to open the permission. (When SELinux is enabled)
 
    ```
    setsebool -P containermanagecgroup true
