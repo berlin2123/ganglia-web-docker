@@ -1,4 +1,6 @@
-Use Ganglia-web inside a centos7 container.
+### Use Ganglia-web inside a centos7 container.
+Purpose: Ganglia is a very good software package for observing the historical state of the cluster. However, the php version used by the current ganglia web interface (3.7.5) is 5.6, which cannot be displayed normally in a higher version php environment (such as that in RHEL8/Centos8/RockyLinux8). Therefore, in order to run the gangliaweb interface in the new systems, configuring and using php5.6 has become a necessary option. Docker can just solve this problem. That is, run Ganglia-web inside a centos7 container in the new system, which container easily run the php5.6, so as to ensure the normal display of the ganglia-web interface.
+
 
 ### Build the container image by Yourself
 
@@ -51,7 +53,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    # vi /etc/ganglia/gmetad.conf 
    # change the line:
    data_source "my cluster" localhost 
-   # into
+   # to
    data_source "cluster" 10.88.0.1:8649
    
    # After the modification is completed, exit from the container
