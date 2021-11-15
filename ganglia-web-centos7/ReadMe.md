@@ -43,13 +43,13 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    You can check the runing state by 
 
    ```
-   docker logs --since 10m ganglia
+   podman logs --since 10m ganglia
    ```
 3. Modify the internal configuration of the container
 
    ```
    # enter the container
-   docker exec -u root -it ganglia /bin/bash
+   podman exec -u root -it ganglia /bin/bash
    # set time zone, to use your time zone, such as,
    timedatectl  set-timezone Asia/Shanghai
    
