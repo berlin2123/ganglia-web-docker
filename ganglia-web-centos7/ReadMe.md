@@ -5,7 +5,7 @@ Purpose: Ganglia is a very good software package for monitoring the historical s
 
 ### Build the container image by Yourself
 
-##### Downlaod this "Dockerfile" and "run-services.sh" into your system
+##### Downlaod this `Dockerfile` and `run-services.sh` into your system
 
 ```
 wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/Dockerfile
@@ -18,7 +18,7 @@ wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/gangli
 podman build -t <name_of_the_container_image>  <Path_to_the_Dockerfile>
 ```
 
-If the "Dockerfile" and "run-services.sh" are saved to "/root/dockertest/cent7ganglia/", and you want to name this image as "mybuild/cent7ganglia", you can just run:  
+If the `Dockerfile` and `run-services.sh` are saved to "/root/dockertest/cent7ganglia/", and you want to name this image as `mybuild/cent7ganglia`, you can just run:  
 
 ```
 podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
@@ -29,20 +29,17 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 ### Run the container
 
 1. Run the container, with the setting of timezone,
-
    ```
    podman run -t -d --name ganglia -p 1380:80 --restart always localhost/mybuild/cent7ganglia --timezone Asia/Shanghai
    ```
-
    You may need to use your own image name, and the timezone name. Notice the timezone name must be in the path below `/usr/share/zoneinfo`.
 
    You can check the runing state by 
-
    ```
    podman logs --since 10m ganglia
    ```
+   
 2. Modify the internal configuration of the container  (If you want to use another cluster name)
-
    ```
    # enter the container
    podman exec -u root -it ganglia /bin/bash   
@@ -55,26 +52,25 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    # After the modification is completed, exit from the container
    exit
    ```
+   
 3. Create a service (systemd) that automatically starts the ganglia container
-
    ```
    podman generate systemd --name ganglia > /etc/systemd/system/container-ganglia.service
    ```
 
    Enable and start this service now
-
    ```
    systemctl enable --now container-ganglia.service 
    ```
 
 4. Open ports, enable permission.
-
    ```
    # ports:
    firewall-cmd --add-port=1380/tcp --permanent
    firewall-cmd --reload
    firewall-cmd --list-all
    ```
+
 5. You can visit the Ganglia-web website inside this container by,
    ```
    http://<YOUR_IP>:1380/ganglia/
@@ -83,12 +79,46 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    ```
 
 
+### Install gmond in nodes to collect nodes status information
+
+1. Install gmond in a node
+   ```
+   dnf install epel-release
+   dnf install ganglia ganglia-gmond
+   ```
+
+2. Edit /etc/ganglia/gmond.conf
+   ```
+   # change the fellow part
+   cluster {
+     name = "cluster"               # be the same as that gmetad.conf inside your container
+     owner = "unspecified"
+     latlong = "unspecified"
+     url = "unspecified"
+   }
+   ```
+
+3. Open ports, enable permission.
+   ```
+   firewall-cmd --add-port=8649/udp --permanent
+   firewall-cmd --add-port=8649/tcp --permanent
+   firewall-cmd --reload
+   firewall-cmd --list-all
+   ```
+4. Enable gmond service.
+   ```
+   systemctl enable --now gmond
+   ```
+
+5 You can monitor the nodes states in the Ganglia-web website now.
+
+
+
 ### Create a reverse proxy on the host machine
 
- To ensure access through YOUR_DMAIN_NAME from other machine into the ganglia-web interface in the container.
+To ensure visit the website through YOUR_DMAIN_NAME.
 
 1. Write a httpd configure file like this /etc/httpd/conf.d/ganglia.conf 
-
    ```
    [root@Host ~]# cat /etc/httpd/conf.d/ganglia.conf 
    #
@@ -107,7 +137,6 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    
    ```
 2. Open ports, enable permission.
-
    ```
    # ports:
    firewall-cmd --zone=public --add-service=http --permanent
@@ -118,10 +147,8 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    setsebool -P httpd_can_network_connect on
    ```
 3. Restart services.
-
    ```
    systemctl restart container-ganglia
    systemctl restart httpd
    ```
 
- 
