@@ -18,7 +18,7 @@ wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/gangli
 podman build -t <name_of_the_container_image>  <Path_to_the_Dockerfile>
 ```
 
-If the `Dockerfile` and `run-services.sh` are saved to "/root/dockertest/cent7ganglia/", and you want to name this image as `mybuild/cent7ganglia`, you can just run:  
+If the `Dockerfile` and `run-services.sh` are saved to `/root/dockertest/cent7ganglia/`, and you want to name this image as `mybuild/cent7ganglia`, you can just run:  
 
 ```
 podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
