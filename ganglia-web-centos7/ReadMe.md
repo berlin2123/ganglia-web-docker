@@ -18,7 +18,7 @@ wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/gangli
 podman build -t <name_of_the_container_image>  <Path_to_the_Dockerfile>
 ```
 
-If the Dockerfile is saved to "/root/dockertest/cent7ganglia/", and you want to name this image as "mybuild/cent7ganglia", you can just run:  
+If the "Dockerfile" and "run-services.sh" are saved to "/root/dockertest/cent7ganglia/", and you want to name this image as "mybuild/cent7ganglia", you can just run:  
 
 ```
 podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
@@ -28,37 +28,29 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 ### Run the container
 
-1. In order to ensure the normal operation of init (systemd) inside container, the host machine needs to open the permission. (When SELinux is enabled)
+1. Run the container, with the setting of timezone,
 
    ```
-   setsebool -P container_manage_cgroup true
-   ```
-2. Run the container
-
-   ```
-   podman run -t -d --name ganglia -p 1380:80 --restart always --privileged localhost/mybuild/cent7ganglia
+   podman run -t -d --name ganglia -p 1380:80 --restart always --privileged localhost/mybuild/cent7ganglia --timezone Asia/Shanghai
    ```
 
-   You may need to use your own image name. 
+   You may need to use your own image name, and the timezone name. Notice the timezone name must be in the path below `/usr/share/zoneinfo`.
 
    You can check the runing state by 
 
    ```
    podman logs --since 10m ganglia
    ```
-3. Modify the internal configuration of the container
+3. Modify the internal configuration of the container  (If you want to use another cluster name)
 
    ```
    # enter the container
-   podman exec -u root -it ganglia /bin/bash
-   # set time zone, to use your time zone, such as,
-   timedatectl  set-timezone Asia/Shanghai
-   
+   podman exec -u root -it ganglia /bin/bash   
    # vi /etc/ganglia/gmetad.conf 
    # change the line:
-   data_source "my cluster" localhost 
+   data_source "cluster" 10.88.0.1:8649 
    # to
-   data_source "cluster" 10.88.0.1:8649
+   data_source "your_cluster_name" 10.88.0.1:8649
    
    # After the modification is completed, exit from the container
    exit
