@@ -8,7 +8,7 @@ Purpose: Ganglia is a very good software package for monitoring the historical s
 ##### Downlaod this Dockerfile into your system
 
 ```
-wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/Dockerfile
+wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7-init/Dockerfile
 ```
 
 ##### Manually build this container:
