@@ -31,7 +31,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 1. Run the container, with the setting of timezone,
 
    ```
-   podman run -t -d --name ganglia -p 1380:80 --restart always --privileged localhost/mybuild/cent7ganglia --timezone Asia/Shanghai
+   podman run -t -d --name ganglia -p 1380:80 --restart always localhost/mybuild/cent7ganglia --timezone Asia/Shanghai
    ```
 
    You may need to use your own image name, and the timezone name. Notice the timezone name must be in the path below `/usr/share/zoneinfo`.
@@ -41,7 +41,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    ```
    podman logs --since 10m ganglia
    ```
-3. Modify the internal configuration of the container  (If you want to use another cluster name)
+2. Modify the internal configuration of the container  (If you want to use another cluster name)
 
    ```
    # enter the container
@@ -55,7 +55,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    # After the modification is completed, exit from the container
    exit
    ```
-4. Create a service (systemd) that automatically starts the ganglia container
+3. Create a service (systemd) that automatically starts the ganglia container
 
    ```
    podman generate systemd --name ganglia > /etc/systemd/system/container-ganglia.service
@@ -67,9 +67,25 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    systemctl enable --now container-ganglia.service 
    ```
 
+4. Open ports, enable permission.
+
+   ```
+   # ports:
+   firewall-cmd --add-port=1380/tcp --permanent
+   firewall-cmd --reload
+   firewall-cmd --list-all
+   ```
+5. You can visit the Ganglia-web website inside this container by,
+   ```
+   http://<YOUR_IP>:1380/ganglia/
+   # such as
+   http://192.168.1.100:1380/ganglia/
+   ```
+
+
 ### Create a reverse proxy on the host machine
 
- to ensure access from other machine into the ganglia-web interface in the container.
+ To ensure access through YOUR_DMAIN_NAME from other machine into the ganglia-web interface in the container.
 
 1. Write a httpd configure file like this /etc/httpd/conf.d/ganglia.conf 
 
@@ -95,7 +111,6 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    ```
    # ports:
    firewall-cmd --zone=public --add-service=http --permanent
-   firewall-cmd --add-port=1380/tcp --permanent
    firewall-cmd --reload
    firewall-cmd --list-all
    
