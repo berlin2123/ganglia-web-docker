@@ -1,20 +1,26 @@
 FROM centos:centos7
 
-# base system upgrade and system dependencies
-RUN yum upgrade -y && \
-    yum install -y epel-release && \
-    yum install -y \
+ENV container docker
+
+RUN yum -y --setopt=tsflags=nodocs upgrade && \
+    yum -y --setopt=tsflags=nodocs install epel-release && \
+    yum -y --setopt=tsflags=nodocs install \
       ganglia-gmetad ganglia-web \
-      httpd php rsync wget tar && \
+      httpd php && \
     yum clean all
 
-# configure
 RUN rm -rf /etc/httpd/conf.d/ganglia.conf && \
     ln -s /usr/share/ganglia /var/www/html/ganglia
 
-# enable server
-RUN systemctl enable httpd gmetad
+RUN sed -i 's|data_source "my cluster" localhost|data_source "cluster" 10.88.0.1:8649|g' /etc/ganglia/gmetad.conf && \
+    echo 'ServerName  localhost:80' >> /etc/httpd/conf/httpd.conf
 
-#RUN yum install -y ganglia-gmond && yum clean all && systemctl enable gmond
+EXPOSE 80
 
-CMD ["/sbin/init"]
+# Simple startup script to avoid some issues observed with container restart
+COPY run-services.sh /run-services.sh
+RUN chmod -v +x /run-services.sh
+
+
+#CMD ["/run-services.sh"]
+ENTRYPOINT ["bash","/run-services.sh"]
