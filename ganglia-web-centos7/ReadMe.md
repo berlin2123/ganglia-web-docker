@@ -5,10 +5,11 @@ Purpose: Ganglia is a very good software package for monitoring the historical s
 
 ### Build the container image by Yourself
 
-##### Downlaod this Dockerfile into your system
+##### Downlaod this "Dockerfile" and "run-services.sh" into your system
 
 ```
 wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/Dockerfile
+wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/run-services.sh
 ```
 
 ##### Manually build this container:
