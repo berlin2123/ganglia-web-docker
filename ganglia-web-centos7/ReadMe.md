@@ -35,7 +35,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 1. Run the container, with the setting of timezone `-e TZ=timezone_code`,
    ```
-   podman run -t -d --name ganglia -e TZ=Asia/Shanghai -p 1380:80 --restart always berlin2123/ganglia-web-centos7
+   podman run -t -d --name ganglia -e TZ=Europe/Berlin -p 1380:80 --restart always berlin2123/ganglia-web-centos7
    ```
    You may need to use your own image or timezone name.
 
