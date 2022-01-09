@@ -1,9 +1,14 @@
 ### Use Ganglia-web inside a centos7 container to monitor RockyLinux8/CentOS8 hosts
 Purpose: Ganglia is a very good software package for monitoring the historical state of clusters or nodes. However, the current ganglia web interface (3.7.5) is based on php-5.6. If you are using a higher version php, such as that in the default environment of **RHEL8/Centos8/RockyLinux8**, ganglia web interface will not be displayed normally. Therefore, configuring and using php-5.6 was the necessary option to run the ganglia web interface in those new systems. Docker can easily solve this problem. That is, **running Ganglia-web inside a centos7 container** in the RHEL8/Centos8/RockyLinux8 system, which container can easily run the php-5.6. It will **ensure the normal display of the ganglia-web interface**.
 
+### Get this container image
 
+#### Just simply Pull (recommended)
+```
+podman pull berlin2123/ganglia-web-centos7
+```
 
-### Build the container image by Yourself
+#### Or build the container image by Yourself
 
 ##### Downlaod this `Dockerfile` and `run-services.sh` into your system
 
@@ -28,11 +33,11 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 ### Run the container
 
-1. Run the container, with the setting of timezone,
+1. Run the container, with the setting of timezone `-e TZ=timezone_code`,
    ```
-   podman run -t -d --name ganglia -p 1380:80 --restart always localhost/mybuild/cent7ganglia --timezone Asia/Shanghai
+   podman run -t -d --name ganglia -e TZ=Asia/Shanghai -p 1380:80 --restart always berlin2123/ganglia-web-centos7
    ```
-   You may need to use your own image name, and the timezone name. Notice the timezone name must be in the path below `/usr/share/zoneinfo`.
+   You may need to use your own image or timezone name.
 
    You can check the runing state by 
    ```
