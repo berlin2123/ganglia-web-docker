@@ -43,8 +43,17 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    ```
    podman logs --since 10m ganglia
    ```
-   
-2. Modify the internal configuration of the container  (If you want to use another cluster name)
+2. Create a service (systemd) that automatically starts the ganglia container
+   ```
+   podman generate systemd --name ganglia > /etc/systemd/system/container-ganglia.service
+   ```
+
+   Enable and start this service now
+   ```
+   systemctl enable --now container-ganglia.service 
+   ```
+
+3. Modify the internal configuration of the container  (If you want to use another cluster name)
    ```
    # enter the container
    podman exec -u root -it ganglia /bin/bash   
@@ -57,15 +66,9 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    # After the modification is completed, exit from the container
    exit
    ```
-   
-3. Create a service (systemd) that automatically starts the ganglia container
+   Restart is required for the changes to take effect,
    ```
-   podman generate systemd --name ganglia > /etc/systemd/system/container-ganglia.service
-   ```
-
-   Enable and start this service now
-   ```
-   systemctl enable --now container-ganglia.service 
+   systemctl restart container-ganglia.service 
    ```
 
 4. Open ports, enable permission.
