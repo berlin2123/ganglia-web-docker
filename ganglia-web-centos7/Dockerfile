@@ -22,5 +22,5 @@ COPY run-services.sh /run-services.sh
 RUN chmod -v +x /run-services.sh
 
 
-#CMD ["/run-services.sh"]
-ENTRYPOINT ["bash","/run-services.sh"]
+CMD ["/run-services.sh"]
+#ENTRYPOINT ["bash","/run-services.sh"]
