@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+echo -e '\nContainer starting...\n'`date` >&2
+
 
 ### run gmetad
 exec /usr/sbin/gmetad -d 1 &
