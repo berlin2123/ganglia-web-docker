@@ -1,5 +1,7 @@
 ### Use Ganglia-web inside a centos7 container to monitor RockyLinux8/CentOS8/CentosStream9 hosts
-Purpose: Ganglia is a very good software package for monitoring the historical state of clusters or nodes. However, the current ganglia web interface (3.7.5) is based on php-5.6. If you are using a higher version php, such as that in the default environment of **RHEL8/Centos8/RockyLinux8**, ganglia web interface will not be displayed normally. Therefore, configuring and using php-5.6 was the necessary option to run the ganglia web interface in those new systems. Docker can easily solve this problem. That is, **running Ganglia-web inside a centos7 container** in the RHEL8/Centos8/RockyLinux8 system, which container can easily run the php-5.6. It will **ensure the normal display of the ganglia-web interface**.
+
+**Purpose:**
+Ganglia is a very good software package for monitoring the historical state of clusters or nodes. However, the current ganglia web interface (3.7.5) is based on php-5.6. If you are using a higher version php, such as that in the default environment of **RHEL8/Centos8/RockyLinux8**, ganglia web interface will not be displayed normally. Therefore, configuring and using php-5.6 was the necessary option to run the ganglia web interface in those new systems. Docker can easily solve this problem. That is, **running Ganglia-web inside a centos7 container** in the RHEL8/Centos8/RockyLinux8 system, which container can easily run the php-5.6. It will **ensure the normal display of the ganglia-web interface**.
 
 ### Get this container image
 
