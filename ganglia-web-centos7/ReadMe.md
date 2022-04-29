@@ -123,7 +123,12 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 5 You can monitor the nodes states in the Ganglia-web website now.
 
+**Notice:**
 
+To monitor other nodes, you need to ensure that gmond is always up and running on the host where this container is running. In some cases if you update the configuration of some nodes, maybe you need to restart the gmond service on the container host.
+   ```
+   systemctl restart gmond
+   ```
 
 ### Create a reverse proxy on the host machine
 
