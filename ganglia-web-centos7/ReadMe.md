@@ -94,10 +94,11 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 1. Install gmond in a node
    ```
-   # for RHEL8/CentOS8/Rocky8 node:
    dnf install -y epel-release
    dnf install -y ganglia ganglia-gmond
-
+   ```
+   There are no ganglia/gmond rpms yet in EL9 epel repository now. So you can use the EL8 rpms instead, in RHEL9/CentOS_Stream9/Rocky9 node.
+   ```
    # for RHEL9/CentOS_Stream9/Rocky9 node:
    dnf install -y epel-release
    dnf install -y \
