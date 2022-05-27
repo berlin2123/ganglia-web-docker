@@ -1,4 +1,4 @@
-### Use Ganglia-web inside a centos7 container to monitor RockyLinux8/CentOS8/CentosStream9 hosts
+### Use Ganglia-web inside a centos7 container to monitor RockyLinux8/CentOS8/CentosStream9/RockyLinux9 hosts
 
 **Purpose:**
 
@@ -94,8 +94,15 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 1. Install gmond in a node
    ```
-   dnf install epel-release
-   dnf install ganglia ganglia-gmond
+   # for RHEL8/CentOS8/Rocky8 node:
+   dnf install -y epel-release
+   dnf install -y ganglia ganglia-gmond
+
+   # for RHEL9/CentOS_Stream9/Rocky9 node:
+   dnf install -y epel-release
+   dnf install -y \
+       https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/ganglia-3.7.2-33.el8.x86_64.rpm \
+       https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/ganglia-gmond-3.7.2-33.el8.x86_64.rpm
    ```
 
 2. Edit /etc/ganglia/gmond.conf
