@@ -8,7 +8,7 @@ Ganglia is a very good software package for monitoring the historical state of c
 
 #### Just simply Pull from [docker.io](https://hub.docker.com/r/berlin2123/ganglia-web-centos7) (recommended)
 ```
-podman pull berlin2123/ganglia-web-centos7
+podman pull docker.io/berlin2123/ganglia-web-centos7
 ```
 
 #### Or build the container image by Yourself
