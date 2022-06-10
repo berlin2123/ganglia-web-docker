@@ -13,11 +13,12 @@ podman pull docker.io/berlin2123/ganglia-web-centos7
 
 #### Or build the container image by Yourself
 
-##### Downlaod this `Dockerfile` and `run-services.sh` into your system
+##### Downlaod those `Dockerfile` and `run-services.sh` into your system
 
 ```
 wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/Dockerfile
 wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/run-services.sh
+wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/download-js.cdnjs.cloudflare.com.tgz 
 ```
 
 ##### Manually build this container:
