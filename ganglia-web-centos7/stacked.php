@@ -71,17 +71,17 @@ foreach ($index_array['cluster'] as $host => $cluster_array ) {
   foreach ($cluster_array as $cluster) {
     // Check cluster name
     if ($cluster == $clustername &&
-        file_exists($conf['rrds'] . "/$clustername/$host/$metricname.rrd")) {
+	file_exists($conf['rrds'] . "/$clustername/$host/$metricname.rrd")) {
       // If host regex is specified make sure it matches
       $add_host = (isset($_REQUEST["host_regex"]) &&
-                   !preg_match("/" . $_REQUEST["host_regex"] . "/", $host)) ?
-        FALSE : TRUE;
+		   !preg_match("/" . $_REQUEST["host_regex"] . "/", $host)) ?
+	FALSE : TRUE;
 
       if ($add_host) {
-        $hosts[] = $host;
-        $host_len = ($conf['strip_domainname']) ?
-          strlen(strip_domainname($host)) : strlen($host);
-        $max_len = max($host_len, $max_len);
+	$hosts[] = $host;
+	$host_len = ($conf['strip_domainname']) ?
+	  strlen(strip_domainname($host)) : strlen($host);
+	$max_len = max($host_len, $max_len);
       }
     }
   }
