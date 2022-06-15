@@ -18,7 +18,8 @@ podman pull docker.io/berlin2123/ganglia-web-centos7
 ```
 wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/Dockerfile
 wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/run-services.sh
-wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/download-js.cdnjs.cloudflare.com.tgz 
+wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/download-js.cdnjs.cloudflare.com.tgz
+wget https://raw.githubusercontent.com/berlin2123/ganglia-web-docker/main/ganglia-web-centos7/stacked.php
 ```
 
 ##### Manually build this container:
