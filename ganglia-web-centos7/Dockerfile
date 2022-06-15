@@ -22,6 +22,9 @@ COPY download-js.cdnjs.cloudflare.com.tgz /download-js.cdnjs.cloudflare.com.tgz
 RUN tar -zxf download-js.cdnjs.cloudflare.com.tgz ; cp -r download-js/cdnjs.cloudflare.com /var/www/html/ganglia/; rm -rf download-js*
 RUN sed -e 's|https://cdnjs.cloudflare.com|cdnjs.cloudflare.com|g' -i.bak /var/www/html/ganglia/conf_default.php
 
+# to avoid Stacked Graphs not working
+RUN mv /var/www/html/ganglia/stacked.php /var/www/html/ganglia/stacked.php_back
+COPY stacked.php /var/www/html/ganglia/stacked.php
 
 # Simple startup script to avoid some issues observed with container restart
 COPY run-services.sh /run-services.sh
