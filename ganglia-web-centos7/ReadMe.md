@@ -4,7 +4,7 @@
 
 Ganglia is a very good software package for monitoring the historical state of clusters or nodes. However, the current ganglia web interface (3.7.5) is based on php-5.6. If you are using a higher version php, such as that in the default environment of **RHEL8/Centos8/RockyLinux8**, ganglia web interface will not be displayed normally. Therefore, configuring and using php-5.6 was the necessary option to run the ganglia web interface in those new systems. Docker can easily solve this problem. That is, **running Ganglia-web inside a centos7 container** in the RHEL8/Centos8/RockyLinux8 system, which container can easily run the php-5.6. It will **ensure the normal display of the ganglia-web interface**.
 
-### Step 1. Get this container image
+### Step I. Get this container image
 
 #### Just simply Pull from [docker.io](https://hub.docker.com/r/berlin2123/ganglia-web-centos7) (recommended)
 ```
@@ -36,7 +36,7 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
 
 
 
-### Step 2. Run the container
+### Step II. Run the container
 
 1. Run the container, with the setting of timezone `-e TZ=timezone_code`,
    ```
@@ -92,20 +92,12 @@ podman build -t mybuild/cent7ganglia /root/dockertest/cent7ganglia/
    ```
 
 
-### Step 3. Install gmond in nodes to collect nodes status information
+### Step III. Install gmond in nodes to collect nodes status information
 
 1. Install gmond in a node
    ```
    dnf install -y epel-release
    dnf install -y ganglia ganglia-gmond
-   ```
-   There are no ganglia/gmond rpms yet in EL9 epel repository now. So you can use the EL8 rpms instead, in RHEL9/CentOS_Stream9/Rocky9 node.
-   ```
-   # for RHEL9/CentOS_Stream9/Rocky9 node:
-   dnf install -y epel-release
-   dnf install -y \
-       https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/ganglia-3.7.2-33.el8.x86_64.rpm \
-       https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/ganglia-gmond-3.7.2-33.el8.x86_64.rpm
    ```
 
 2. Edit /etc/ganglia/gmond.conf
@@ -140,7 +132,7 @@ To monitor other nodes, you need to ensure that gmond is always up and running o
    systemctl restart gmond
    ```
 
-### Step 4. Create a reverse proxy on the host machine (Not necessary for LAN users)
+### Step IV. Create a reverse proxy on the host machine (Not necessary for LAN users)
 
 To ensure visit the website through YOUR_DMAIN_NAME.
 
